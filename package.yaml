@@ -1,10 +1,10 @@
 name:                game-of-life
 version:             0.1.0.0
-github:              "githubuser/game-of-life"
-license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2020 Author name here"
+github:              "mode89/game-of-life-haskell"
+license:             MIT
+author:              "Andrey Krainyak"
+maintainer:          "mode.andrew@gmail.com"
+copyright:           "2020 Andrey Krainyak"
 
 extra-source-files:
 - README.md
