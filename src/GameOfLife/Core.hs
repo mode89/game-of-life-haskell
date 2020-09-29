@@ -4,7 +4,10 @@ module GameOfLife.Core
     , cellState
     , gridLiveNeighboursNumber
     , gridState
+    , paddedGrid
     ) where
+
+import qualified Data.List
 
 data CellState = Dead | Alive deriving (Eq, Show)
 newtype Grid = Grid { getGridList :: [[CellState]] } deriving (Eq, Show)
@@ -23,3 +26,12 @@ gridState prevGrid = Grid [[ Dead ]]
 
 gridLiveNeighboursNumber :: Grid -> [[Int]]
 gridLiveNeighboursNumber grid = [[ 0 ]]
+
+paddedGrid :: Grid -> Grid
+paddedGrid grid =
+    let paddedRowF = \row -> [Dead] ++ row ++ [Dead]
+        gridList = getGridList grid
+        paddedRowLength = length (gridList !! 0) + 2
+        paddingRow = take paddedRowLength (repeat Dead)
+        paddedRows = map paddedRowF $ gridList
+    in Grid $ [paddingRow] ++ paddedRows ++ [paddingRow]

@@ -11,6 +11,7 @@ tests = testGroup "Core"
     , testBecomeAliveRule
     , testSingularDeadGrid
     , testSingularGridLiveNeighboursNumber
+    , testGridPadding
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -43,3 +44,10 @@ testSingularDeadGrid = testCase "Singular dead grid" $
 testSingularGridLiveNeighboursNumber =
     testCase "Singular grid live neighbours number" $
         [[0]] @=? gridLiveNeighboursNumber (Grid [[Dead]])
+
+testGridPadding = testCase "Grid padding" $
+    let input = Grid [[Alive]]
+        output = Grid [[Dead,  Dead, Dead],
+                       [Dead, Alive, Dead],
+                       [Dead,  Dead, Dead]]
+    in output @=? paddedGrid input
