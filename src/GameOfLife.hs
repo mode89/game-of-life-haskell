@@ -1,9 +1,12 @@
 module GameOfLife
     ( CellState (..)
+    , Grid (..)
     , cellState
+    , gridState
     ) where
 
 data CellState = Dead | Alive deriving (Eq, Show)
+newtype Grid = Grid { getGridList :: [[CellState]] } deriving (Eq, Show)
 
 cellState :: CellState -> Int -> CellState
 cellState Alive liveNeighboursNumber
@@ -13,3 +16,6 @@ cellState Alive liveNeighboursNumber
 cellState Dead liveNeighboursNumber
     | liveNeighboursNumber == 3 = Alive
     | otherwise = Dead
+
+gridState :: Grid -> Grid
+gridState prevGrid = Grid [[ Dead ]]
