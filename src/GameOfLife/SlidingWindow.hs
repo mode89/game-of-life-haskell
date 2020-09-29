@@ -16,7 +16,7 @@ slidingWindowThroughColumns :: Int -> [[a]] -> [[[a]]]
 slidingWindowThroughColumns windowSize grid =
     List.transpose $ map (slidingWindow windowSize) grid
 
-slidingWindow2d :: Int -> [[a]] -> [[[a]]]
+slidingWindow2d :: Int -> [[a]] -> [[[[a]]]]
 slidingWindow2d windowSize grid =
     let rowWindows = slidingWindow windowSize grid
-    in concat $ map (slidingWindowThroughColumns windowSize) rowWindows
+    in map (slidingWindowThroughColumns windowSize) rowWindows

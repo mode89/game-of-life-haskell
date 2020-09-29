@@ -3,13 +3,14 @@ module GameOfLife.Core
     , Grid (..)
     , cellState
     , countAliveCellsInList
-    , gridLiveNeighboursNumber
+    , countAliveNeighboursOnGrid
     , gridState
     , neighboursInWindow
     , paddedGrid
     ) where
 
 import qualified Data.List
+import GameOfLife.SlidingWindow
 
 data CellState = Dead | Alive deriving (Eq, Show)
 newtype Grid = Grid { getGridList :: [[CellState]] } deriving (Eq, Show)
@@ -25,9 +26,6 @@ cellState Dead liveNeighboursNumber
 
 gridState :: Grid -> Grid
 gridState prevGrid = Grid [[ Dead ]]
-
-gridLiveNeighboursNumber :: Grid -> [[Int]]
-gridLiveNeighboursNumber grid = [[ 0 ]]
 
 paddedGrid :: Grid -> Grid
 paddedGrid grid =
@@ -49,3 +47,10 @@ neighboursInWindow window =
 
 countAliveCellsInList :: [CellState] -> Int
 countAliveCellsInList = length . filter (Alive ==)
+
+countAliveNeighboursOnGrid :: Grid -> [[Int]]
+countAliveNeighboursOnGrid grid =
+    let pGrid = paddedGrid grid
+        windows = slidingWindow2d 3 (getGridList pGrid)
+        neighbours = map (map neighboursInWindow) windows
+    in map (map countAliveCellsInList) neighbours

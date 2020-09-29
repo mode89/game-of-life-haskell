@@ -14,6 +14,7 @@ tests = testGroup "Core"
     , testGridPadding
     , testNeighboursInWindow
     , testCountAliveCellsInList
+    , testCountAliveNeighboursOnGrid
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -45,7 +46,7 @@ testSingularDeadGrid = testCase "Singular dead grid" $
 
 testSingularGridLiveNeighboursNumber =
     testCase "Singular grid live neighbours number" $
-        [[0]] @=? gridLiveNeighboursNumber (Grid [[Dead]])
+        [[0]] @=? countAliveNeighboursOnGrid (Grid [[Dead]])
 
 testGridPadding = testCase "Grid padding" $
     let input = Grid [[Alive]]
@@ -63,3 +64,7 @@ testNeighboursInWindow = testCase "List neighbours inside a window" $
 
 testCountAliveCellsInList = testCase "Count alive cells in a list" $
     2 @=? countAliveCellsInList [Alive, Dead, Alive, Dead]
+
+testCountAliveNeighboursOnGrid =
+    testCase "Count alive neighbours of each cell" $
+        [[1, 0]] @=? countAliveNeighboursOnGrid (Grid [[Dead, Alive]])
