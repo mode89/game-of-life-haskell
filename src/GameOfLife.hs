@@ -3,6 +3,7 @@ module GameOfLife
     , Grid (..)
     , cellState
     , gridState
+    , gridLiveNeighboursNumber
     ) where
 
 data CellState = Dead | Alive deriving (Eq, Show)
@@ -19,3 +20,6 @@ cellState Dead liveNeighboursNumber
 
 gridState :: Grid -> Grid
 gridState prevGrid = Grid [[ Dead ]]
+
+gridLiveNeighboursNumber :: Grid -> [[Int]]
+gridLiveNeighboursNumber grid = [[ 0 ]]

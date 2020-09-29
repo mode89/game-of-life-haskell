@@ -10,6 +10,7 @@ tests = testGroup "Tests"
     , testSurvivalRule
     , testBecomeAliveRule
     , testSingularDeadGrid
+    , testSingularGridLiveNeighboursNumber
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -38,3 +39,7 @@ testBecomeAliveRule = testCase "Cell become alive" $
 
 testSingularDeadGrid = testCase "Singular dead grid" $
     Grid [[Dead]] @=? gridState (Grid [[Dead]])
+
+testSingularGridLiveNeighboursNumber =
+    testCase "Singular grid live neighbours number" $
+        [[0]] @=? gridLiveNeighboursNumber (Grid [[Dead]])
