@@ -10,3 +10,6 @@ cellState Alive liveNeighboursNumber
     | liveNeighboursNumber < 2 = Dead
     | liveNeighboursNumber > 3 = Dead
     | otherwise = Alive
+cellState Dead liveNeighboursNumber
+    | liveNeighboursNumber == 3 = Alive
+    | otherwise = Dead

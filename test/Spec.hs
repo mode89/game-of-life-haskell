@@ -8,6 +8,7 @@ tests = testGroup "Tests"
     [ testUnderpopulationRule
     , testOvercrowdingRule
     , testSurvivalRule
+    , testBecomeAliveRule
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -27,3 +28,9 @@ testSurvivalRule = testCase "Survival rule" $
         prevCellState = Alive
         newCellState = cellState prevCellState liveNeighboursNumber
     in assertEqual "Cell must survive" newCellState Alive
+
+testBecomeAliveRule = testCase "Cell become alive" $
+    let liveNeighboursNumber = 3
+        prevCellState = Dead
+        newCellState = cellState prevCellState liveNeighboursNumber
+    in assertEqual "Cell must become alive" newCellState Alive
