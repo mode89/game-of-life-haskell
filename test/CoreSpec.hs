@@ -13,6 +13,7 @@ tests = testGroup "Core"
     , testSingularGridLiveNeighboursNumber
     , testGridPadding
     , testNeighboursInWindow
+    , testCountAliveCellsInList
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -59,3 +60,6 @@ testNeighboursInWindow = testCase "List neighbours inside a window" $
                   [Dead, Alive,  Dead]]
         neighbours = [Alive, Alive, Alive, Dead]
     in neighbours @=? neighboursInWindow window
+
+testCountAliveCellsInList = testCase "Count alive cells in a list" $
+    2 @=? countAliveCellsInList [Alive, Dead, Alive, Dead]

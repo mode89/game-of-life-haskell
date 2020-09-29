@@ -2,6 +2,7 @@ module GameOfLife.Core
     ( CellState (..)
     , Grid (..)
     , cellState
+    , countAliveCellsInList
     , gridLiveNeighboursNumber
     , gridState
     , neighboursInWindow
@@ -45,3 +46,6 @@ neighboursInWindow window =
         window !! 2 !! 1,
         window !! 1 !! 0
     ]
+
+countAliveCellsInList :: [CellState] -> Int
+countAliveCellsInList = length . filter (Alive ==)
