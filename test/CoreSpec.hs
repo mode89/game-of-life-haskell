@@ -15,6 +15,7 @@ tests = testGroup "Core"
     , testNeighboursInWindow
     , testCountAliveCellsInList
     , testCountAliveNeighboursOnGrid
+    , testEvolve
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -68,3 +69,12 @@ testCountAliveCellsInList = testCase "Count alive cells in a list" $
 testCountAliveNeighboursOnGrid =
     testCase "Count alive neighbours of each cell" $
         [[1, 0]] @=? countAliveNeighboursOnGrid (Grid [[Dead, Alive]])
+
+testEvolve = testCase "Evolve grid" $
+    let input = Grid [[Alive, Alive, Alive],
+                      [Alive,  Dead, Alive],
+                      [ Dead,  Dead,  Dead]]
+        output = Grid [[Alive, Alive, Alive],
+                       [ Dead, Alive,  Dead],
+                       [ Dead,  Dead,  Dead]]
+    in output @=? gridState input

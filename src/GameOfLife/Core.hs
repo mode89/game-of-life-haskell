@@ -25,7 +25,11 @@ cellState Dead liveNeighboursNumber
     | otherwise = Dead
 
 gridState :: Grid -> Grid
-gridState prevGrid = Grid [[ Dead ]]
+gridState grid =
+    let neighbours = countAliveNeighboursOnGrid grid
+        gridList = getGridList grid
+        zippedStateAndNeighNum = zipWith zip gridList neighbours
+    in Grid $ map (map (uncurry cellState)) zippedStateAndNeighNum
 
 paddedGrid :: Grid -> Grid
 paddedGrid grid =
