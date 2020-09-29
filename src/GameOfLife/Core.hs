@@ -1,10 +1,10 @@
 module GameOfLife.Core
     ( CellState (..)
     , Grid (..)
-    , cellState
     , countAliveCellsInList
     , countAliveNeighboursOnGrid
-    , gridState
+    , nextCellState
+    , nextGridState
     , neighboursInWindow
     , paddedGrid
     ) where
@@ -15,21 +15,21 @@ import GameOfLife.SlidingWindow
 data CellState = Dead | Alive deriving (Eq, Show)
 newtype Grid = Grid { getGridList :: [[CellState]] } deriving (Eq, Show)
 
-cellState :: CellState -> Int -> CellState
-cellState Alive liveNeighboursNumber
+nextCellState :: CellState -> Int -> CellState
+nextCellState Alive liveNeighboursNumber
     | liveNeighboursNumber < 2 = Dead
     | liveNeighboursNumber > 3 = Dead
     | otherwise = Alive
-cellState Dead liveNeighboursNumber
+nextCellState Dead liveNeighboursNumber
     | liveNeighboursNumber == 3 = Alive
     | otherwise = Dead
 
-gridState :: Grid -> Grid
-gridState grid =
+nextGridState :: Grid -> Grid
+nextGridState grid =
     let neighbours = countAliveNeighboursOnGrid grid
         gridList = getGridList grid
         zippedStateAndNeighNum = zipWith zip gridList neighbours
-    in Grid $ map (map (uncurry cellState)) zippedStateAndNeighNum
+    in Grid $ map (map (uncurry nextCellState)) zippedStateAndNeighNum
 
 paddedGrid :: Grid -> Grid
 paddedGrid grid =
