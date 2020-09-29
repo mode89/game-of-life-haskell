@@ -11,6 +11,8 @@ tests = testGroup "Tests"
     , testBecomeAliveRule
     , testSingularDeadGrid
     , testSingularGridLiveNeighboursNumber
+    , testSlidingWindow
+    , testSlidingWindowLongerList
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -43,3 +45,9 @@ testSingularDeadGrid = testCase "Singular dead grid" $
 testSingularGridLiveNeighboursNumber =
     testCase "Singular grid live neighbours number" $
         [[0]] @=? gridLiveNeighboursNumber (Grid [[Dead]])
+
+testSlidingWindow = testCase "Sliding window" $
+    [[0, 1], [1, 2]] @=? slidingWindow 2 [0, 1, 2]
+
+testSlidingWindowLongerList = testCase "Sliding window on longer list" $
+    [[0, 1], [1, 2], [2, 3], [3, 4]] @=? slidingWindow 2 [0, 1, 2, 3, 4]

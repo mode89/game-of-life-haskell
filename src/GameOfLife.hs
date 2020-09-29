@@ -2,9 +2,12 @@ module GameOfLife
     ( CellState (..)
     , Grid (..)
     , cellState
-    , gridState
     , gridLiveNeighboursNumber
+    , gridState
+    , slidingWindow
     ) where
+
+import qualified Data.List as List
 
 data CellState = Dead | Alive deriving (Eq, Show)
 newtype Grid = Grid { getGridList :: [[CellState]] } deriving (Eq, Show)
@@ -23,3 +26,9 @@ gridState prevGrid = Grid [[ Dead ]]
 
 gridLiveNeighboursNumber :: Grid -> [[Int]]
 gridLiveNeighboursNumber grid = [[ 0 ]]
+
+slidingWindow :: Int -> [a] -> [[a]]
+slidingWindow windowSize xs =
+    let listLenght = List.length xs
+        windowNum = listLenght - (windowSize - 1)
+    in take windowNum . List.transpose . take windowSize . List.tails $ xs
