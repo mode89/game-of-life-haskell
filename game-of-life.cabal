@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 12abeb8f4ad66e686a90c6a38d14adb262a46f588fac499800401dc1a7fcf746
+-- hash: 42a5d7c85844e4997290f861b457626678162724e0811b833467788613de641b
 
 name:           game-of-life
 version:        0.1.0.0
@@ -27,7 +27,7 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      GameOfLife
   other-modules:
       Paths_game_of_life
   hs-source-dirs:
