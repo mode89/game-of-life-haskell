@@ -12,6 +12,7 @@ tests = testGroup "Core"
     , testSingularDeadGrid
     , testSingularGridLiveNeighboursNumber
     , testGridPadding
+    , testNeighboursInWindow
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -51,3 +52,10 @@ testGridPadding = testCase "Grid padding" $
                        [Dead, Alive, Dead],
                        [Dead,  Dead, Dead]]
     in output @=? paddedGrid input
+
+testNeighboursInWindow = testCase "List neighbours inside a window" $
+    let window = [[Dead, Alive,  Dead],
+                  [Dead,  Dead, Alive],
+                  [Dead, Alive,  Dead]]
+        neighbours = [Alive, Alive, Alive, Dead]
+    in neighbours @=? neighboursInWindow window

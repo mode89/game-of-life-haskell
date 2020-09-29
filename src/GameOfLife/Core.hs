@@ -4,6 +4,7 @@ module GameOfLife.Core
     , cellState
     , gridLiveNeighboursNumber
     , gridState
+    , neighboursInWindow
     , paddedGrid
     ) where
 
@@ -35,3 +36,12 @@ paddedGrid grid =
         paddingRow = take paddedRowLength (repeat Dead)
         paddedRows = map paddedRowF $ gridList
     in Grid $ [paddingRow] ++ paddedRows ++ [paddingRow]
+
+neighboursInWindow :: [[CellState]] -> [CellState]
+neighboursInWindow window =
+    [
+        window !! 0 !! 1,
+        window !! 1 !! 2,
+        window !! 2 !! 1,
+        window !! 1 !! 0
+    ]
