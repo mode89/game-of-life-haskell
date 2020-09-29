@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b2a6adcaf3104f97659eb74386e7612b3376e8b661f38890c0b3f8c8b82364a6
+-- hash: 12abeb8f4ad66e686a90c6a38d14adb262a46f588fac499800401dc1a7fcf746
 
 name:           game-of-life
 version:        0.1.0.0
@@ -34,6 +34,8 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
 
 executable game-of-life-exe
@@ -46,6 +48,8 @@ executable game-of-life-exe
   build-depends:
       base >=4.7 && <5
     , game-of-life
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
 
 test-suite game-of-life-test
@@ -59,4 +63,6 @@ test-suite game-of-life-test
   build-depends:
       base >=4.7 && <5
     , game-of-life
+    , tasty
+    , tasty-hunit
   default-language: Haskell2010
