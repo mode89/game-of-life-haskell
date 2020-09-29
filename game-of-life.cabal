@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 42a5d7c85844e4997290f861b457626678162724e0811b833467788613de641b
+-- hash: d3f7efb80d544236ec3054e580e4d6c28e11f1b162b3430512e8289aa189e781
 
 name:           game-of-life
 version:        0.1.0.0
@@ -27,7 +27,8 @@ source-repository head
 
 library
   exposed-modules:
-      GameOfLife
+      GameOfLife.Core
+      GameOfLife.SlidingWindow
   other-modules:
       Paths_game_of_life
   hs-source-dirs:
@@ -56,6 +57,8 @@ test-suite game-of-life-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      CoreSpec
+      SlidingWindowSpec
       Paths_game_of_life
   hs-source-dirs:
       test
