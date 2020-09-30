@@ -4,6 +4,7 @@ module GameOfLife.Core
     , countAliveCellsInList
     , countAliveNeighboursOnGrid
     , emptyGrid
+    , embedGrid
     , nextCellState
     , nextGridState
     , neighboursInWindow
@@ -80,3 +81,16 @@ rPentomino :: Grid
 rPentomino = Grid [[  Dead, Alive, Alive ],
                    [ Alive, Alive,  Dead ],
                    [  Dead, Alive,  Dead ]]
+
+embedGrid :: Grid -> Int -> Int -> Grid -> Grid
+embedGrid baseGrid row column grid = Grid $ header ++ body ++ footer where
+    header = take row $ getGridList baseGrid
+    body = zipWith bodyRow baseGridBodyRows (getGridList grid)
+    footer = drop (headerHeight + bodyHeight) $ getGridList baseGrid
+    headerHeight = row
+    bodyHeight = length $ getGridList grid
+    bodyRow baseRow row = beginning ++ row ++ ending where
+        beginning = take column baseRow
+        ending = drop (column + rowWidth) baseRow
+        rowWidth = length row
+    baseGridBodyRows = take bodyHeight . drop row $ getGridList baseGrid

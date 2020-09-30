@@ -17,6 +17,7 @@ tests = testGroup "Core"
     , testCountAliveNeighboursOnGrid
     , testEvolve
     , testStringFromGrid
+    , testEmbedGrid
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -85,3 +86,12 @@ testStringFromGrid = testCase "Convert Grid to a string" $
                       [Alive, Alive]]
         output = "*.\n**"
     in output @=? stringFromGrid input
+
+testEmbedGrid = testCase "Embed one grid into another" $
+    let baseGrid = emptyGrid 3 3
+        grid = Grid [[ Alive,  Dead ],
+                     [ Alive, Alive ]]
+        output = Grid [[ Dead,  Dead,  Dead ],
+                       [ Dead, Alive,  Dead ],
+                       [ Dead, Alive, Alive ]]
+    in output @=? embedGrid baseGrid 1 1 grid
