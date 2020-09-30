@@ -7,9 +7,10 @@ module GameOfLife.Core
     , nextGridState
     , neighboursInWindow
     , paddedGrid
+    , stringFromGrid
     ) where
 
-import qualified Data.List
+import qualified Data.List as List
 import GameOfLife.SlidingWindow
 
 data CellState = Dead | Alive deriving (Eq, Show)
@@ -58,3 +59,14 @@ countAliveNeighboursOnGrid grid =
         windows = slidingWindow2d 3 (getGridList pGrid)
         neighbours = map (map neighboursInWindow) windows
     in map (map countAliveCellsInList) neighbours
+
+stringFromGrid :: Grid -> String
+stringFromGrid grid =
+    List.intercalate "\n" . map stringFromCellList $ getGridList grid
+
+stringFromCell :: CellState -> String
+stringFromCell Alive = "*"
+stringFromCell Dead = "."
+
+stringFromCellList :: [CellState] -> String
+stringFromCellList cells = concat $ map stringFromCell cells

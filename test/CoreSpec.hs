@@ -16,6 +16,7 @@ tests = testGroup "Core"
     , testCountAliveCellsInList
     , testCountAliveNeighboursOnGrid
     , testEvolve
+    , testStringFromGrid
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -78,3 +79,9 @@ testEvolve = testCase "Evolve grid" $
                        [ Dead, Alive,  Dead],
                        [ Dead,  Dead,  Dead]]
     in output @=? nextGridState input
+
+testStringFromGrid = testCase "Convert Grid to a string" $
+    let input = Grid [[Alive,  Dead],
+                      [Alive, Alive]]
+        output = "*.\n**"
+    in output @=? stringFromGrid input
