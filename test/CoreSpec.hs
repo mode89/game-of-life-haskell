@@ -61,8 +61,8 @@ testGridPadding = testCase "Grid padding" $
 testNeighboursInWindow = testCase "List neighbours inside a window" $
     let window = [[Dead, Alive,  Dead],
                   [Dead,  Dead, Alive],
-                  [Dead, Alive,  Dead]]
-        neighbours = [Alive, Alive, Alive, Dead]
+                  [Dead, Alive, Alive]]
+        neighbours = [Dead, Alive, Dead, Dead, Alive, Dead, Alive, Alive]
     in neighbours @=? neighboursInWindow window
 
 testCountAliveCellsInList = testCase "Count alive cells in a list" $
@@ -74,11 +74,11 @@ testCountAliveNeighboursOnGrid =
 
 testEvolve = testCase "Evolve grid" $
     let input = Grid [[Alive, Alive, Alive],
-                      [Alive,  Dead, Alive],
+                      [Alive, Alive, Alive],
                       [ Dead,  Dead,  Dead]]
-        output = Grid [[Alive, Alive, Alive],
-                       [ Dead, Alive,  Dead],
-                       [ Dead,  Dead,  Dead]]
+        output = Grid [[Alive,  Dead, Alive],
+                       [Alive,  Dead, Alive],
+                       [ Dead, Alive,  Dead]]
     in output @=? nextGridState input
 
 testStringFromGrid = testCase "Convert Grid to a string" $

@@ -46,12 +46,7 @@ paddedGrid grid =
 
 neighboursInWindow :: [[CellState]] -> [CellState]
 neighboursInWindow window =
-    [
-        window !! 0 !! 1,
-        window !! 1 !! 2,
-        window !! 2 !! 1,
-        window !! 1 !! 0
-    ]
+    window !! 0 ++ [window !! 1 !! 0, window !! 1 !! 2] ++ window !! 2
 
 countAliveCellsInList :: [CellState] -> Int
 countAliveCellsInList = length . filter (Alive ==)
