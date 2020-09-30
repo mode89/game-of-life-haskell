@@ -3,10 +3,12 @@ module GameOfLife.Core
     , Grid (..)
     , countAliveCellsInList
     , countAliveNeighboursOnGrid
+    , emptyGrid
     , nextCellState
     , nextGridState
     , neighboursInWindow
     , paddedGrid
+    , rPentomino
     , stringFromGrid
     ) where
 
@@ -70,3 +72,11 @@ stringFromCell Dead = "."
 
 stringFromCellList :: [CellState] -> String
 stringFromCellList cells = concat $ map stringFromCell cells
+
+emptyGrid :: Int -> Int -> Grid
+emptyGrid rows columns = Grid $ replicate rows $ replicate columns Dead
+
+rPentomino :: Grid
+rPentomino = Grid [[  Dead, Alive, Alive ],
+                   [ Alive, Alive,  Dead ],
+                   [  Dead, Alive,  Dead ]]
