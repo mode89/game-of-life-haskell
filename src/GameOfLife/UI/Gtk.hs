@@ -11,8 +11,8 @@ import qualified GI.Gtk.Enums as GtkEnums
 main :: IO ()
 main = do
     Gtk.init Nothing
-    win <- Gtk.windowNew GtkEnums.WindowTypeToplevel
-    Gtk.windowSetTitle win "Game of Life"
-    Gtk.onWidgetDestroy win Gtk.mainQuit
-    Gtk.widgetShowAll win
+    window <- Gtk.windowNew GtkEnums.WindowTypeToplevel
+    Gtk.windowSetTitle window "Game of Life"
+    Gtk.onWidgetDestroy window Gtk.mainQuit
+    Gtk.widgetShowAll window
     Gtk.main
