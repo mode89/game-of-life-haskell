@@ -18,6 +18,7 @@ tests = testGroup "Core"
     , testEvolve
     , testStringFromGrid
     , testEmbedGrid
+    , testCellCoordFromGrid
     ]
 
 testUnderpopulationRule = testCase "Underpopulation rule" $
@@ -95,3 +96,9 @@ testEmbedGrid = testCase "Embed one grid into another" $
                        [ Dead, Alive,  Dead ],
                        [ Dead, Alive, Alive ]]
     in output @=? embedGrid baseGrid 1 1 grid
+
+testCellCoordFromGrid = testCase "Get coordinates of alive cells" $
+    let grid = Grid [[ Alive, Dead ],
+                     [ Alive, Alive ]]
+        output = [CellCoord 0 0, CellCoord 1 0, CellCoord 1 1]
+    in output @=? cellCoordFromGrid grid

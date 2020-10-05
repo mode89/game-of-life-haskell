@@ -1,6 +1,8 @@
 module GameOfLife.Core
-    ( CellState (..)
+    ( CellCoord (..)
+    , CellState (..)
     , Grid (..)
+    , cellCoordFromGrid
     , countAliveCellsInList
     , countAliveNeighboursOnGrid
     , emptyGrid
@@ -14,8 +16,14 @@ module GameOfLife.Core
     ) where
 
 import qualified Data.List as List
+import Data.Maybe
 import GameOfLife.SlidingWindow
 
+data CellCoord = CellCoord
+    {
+        getCellCoordX :: Int,
+        getCellCoordY :: Int
+    } deriving (Eq, Show)
 data CellState = Dead | Alive deriving (Eq, Show)
 newtype Grid = Grid { getGridList :: [[CellState]] } deriving (Eq, Show)
 
@@ -89,3 +97,18 @@ embedGrid baseGrid row column grid = Grid $ header ++ body ++ footer where
         ending = drop (column + rowWidth) baseRow
         rowWidth = length row
     baseGridBodyRows = take bodyHeight . drop row $ getGridList baseGrid
+
+cellCoordFromGrid :: Grid -> [CellCoord]
+cellCoordFromGrid grid =
+    catMaybes $ map maybeAliveCell $ enumAllGridCells grid where
+        maybeAliveCell (cellCoord, cellState) =
+            case cellState of
+                Alive -> Just $ cellCoord
+                Dead ->  Nothing
+
+enumAllGridCells :: Grid -> [(CellCoord, CellState)]
+enumAllGridCells grid = concat $ zipWith enumRows [0..] gridRows where
+    gridRows = getGridList grid
+    enumRows rowIndex row = zipWith (enumRowCells rowIndex) [0..] row
+    enumRowCells rowIndex columnIndex cellState =
+        (CellCoord rowIndex columnIndex, cellState)
