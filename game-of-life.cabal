@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1f8da680e402a6f504abe42735bde0321569866ad41bd21e8f143d681e768ff3
+-- hash: 67aa2a675b86204d1f5a06df94bc82f497b4cd44cb9296cf4ee7016cf1bd5595
 
 name:           game-of-life
 version:        0.1.0.0
@@ -39,6 +39,7 @@ library
       base >=4.7 && <5
     , cairo
     , gi-cairo
+    , gi-glib
     , gi-gtk
     , haskell-gi-base
     , tasty
@@ -58,6 +59,7 @@ executable game-of-life-exe
     , cairo
     , game-of-life
     , gi-cairo
+    , gi-glib
     , gi-gtk
     , haskell-gi-base
     , tasty
@@ -80,6 +82,7 @@ test-suite game-of-life-test
     , cairo
     , game-of-life
     , gi-cairo
+    , gi-glib
     , gi-gtk
     , haskell-gi-base
     , tasty

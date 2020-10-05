@@ -5,9 +5,11 @@ module GameOfLife.UI.Gtk ( main ) where
 import Control.Concurrent
 import Control.Monad.Trans.Reader (runReaderT)
 import Data.GI.Base
+import Data.IORef
 import Foreign.Ptr (castPtr)
 import GameOfLife.Core
 import qualified GI.Cairo as GI.Cairo
+import qualified GI.GLib as GLib
 import qualified GI.Gtk as Gtk
 import qualified GI.Gtk.Enums as GtkEnums
 import Graphics.Rendering.Cairo
@@ -16,7 +18,7 @@ import Graphics.Rendering.Cairo.Types (Cairo(Cairo))
 
 main :: IO ()
 main = do
-    let grid = rPentomino
+    gridRef <- newIORef $ embedGrid (emptyGrid 101 101) 49 49 rPentomino
     Gtk.init Nothing
     window <- Gtk.windowNew GtkEnums.WindowTypeToplevel
     Gtk.windowSetTitle window "Game of Life"
@@ -24,6 +26,7 @@ main = do
     drawingArea <- Gtk.drawingAreaNew
     Gtk.onWidgetDraw drawingArea $
         \context -> do
+            grid <- readIORef gridRef
             renderWithContext context $ do
                 renderGrid grid
             return True
@@ -31,6 +34,10 @@ main = do
     Gtk.boxPackStart box drawingArea True True 0
     Gtk.containerAdd window box
     Gtk.widgetShowAll window
+    GLib.timeoutAdd GLib.PRIORITY_DEFAULT 100 $ do
+        modifyIORef gridRef nextGridState
+        Gtk.widgetQueueDraw drawingArea
+        return True
     Gtk.main
 
 renderWithContext :: GI.Cairo.Context -> Render () -> IO ()

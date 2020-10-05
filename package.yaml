@@ -24,6 +24,7 @@ dependencies:
 - cairo
 - haskell-gi-base
 - gi-cairo
+- gi-glib
 - gi-gtk
 - tasty
 - tasty-hunit
