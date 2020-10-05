@@ -57,5 +57,5 @@ renderCell :: CellCoord -> Render ()
 renderCell cellCoord = do
     rectangle x y 1 1
     where
-        x = fromIntegral $ getCellCoordX cellCoord
-        y = fromIntegral $ getCellCoordY cellCoord
+        x = fromIntegral $ getCellCoordY cellCoord
+        y = fromIntegral $ getCellCoordX cellCoord
