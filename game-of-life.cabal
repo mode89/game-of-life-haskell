@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 79ace7a8939d8beb092bda62a218b810bf19f0a3ac951cbc9bd8914dc1e7050d
+-- hash: 1f8da680e402a6f504abe42735bde0321569866ad41bd21e8f143d681e768ff3
 
 name:           game-of-life
 version:        0.1.0.0
@@ -37,10 +37,13 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , cairo
+    , gi-cairo
     , gi-gtk
     , haskell-gi-base
     , tasty
     , tasty-hunit
+    , transformers
   default-language: Haskell2010
 
 executable game-of-life-exe
@@ -52,11 +55,14 @@ executable game-of-life-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , cairo
     , game-of-life
+    , gi-cairo
     , gi-gtk
     , haskell-gi-base
     , tasty
     , tasty-hunit
+    , transformers
   default-language: Haskell2010
 
 test-suite game-of-life-test
@@ -71,9 +77,12 @@ test-suite game-of-life-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , cairo
     , game-of-life
+    , gi-cairo
     , gi-gtk
     , haskell-gi-base
     , tasty
     , tasty-hunit
+    , transformers
   default-language: Haskell2010
