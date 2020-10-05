@@ -16,21 +16,16 @@ import Graphics.Rendering.Cairo.Types (Cairo(Cairo))
 
 main :: IO ()
 main = do
+    let grid = rPentomino
     Gtk.init Nothing
     window <- Gtk.windowNew GtkEnums.WindowTypeToplevel
     Gtk.windowSetTitle window "Game of Life"
     Gtk.onWidgetDestroy window Gtk.mainQuit
     drawingArea <- Gtk.drawingAreaNew
-    Gtk.widgetSetSizeRequest drawingArea 500 500
     Gtk.onWidgetDraw drawingArea $
         \context -> do
             renderWithContext context $ do
-                setLineWidth 1.0
-                setSourceRGB 0 0 0
-                scale 100 100
-                translate 1.0 1.0
-                rectangle 0 0 1 1
-                fill
+                renderGrid grid
             return True
     box <- Gtk.boxNew GtkEnums.OrientationVertical 0
     Gtk.boxPackStart box drawingArea True True 0
@@ -42,3 +37,18 @@ renderWithContext :: GI.Cairo.Context -> Render () -> IO ()
 renderWithContext context render = withManagedPtr context $
     \pointer ->
         runReaderT (runRender render) (Cairo (castPtr pointer))
+
+renderGrid :: Grid -> Render()
+renderGrid grid = do
+    setSourceRGB 0 0 0
+    identityMatrix
+    scale 10 10
+    mapM_ renderCell $ cellCoordFromGrid grid
+    fill
+
+renderCell :: CellCoord -> Render ()
+renderCell cellCoord = do
+    rectangle x y 1 1
+    where
+        x = fromIntegral $ getCellCoordX cellCoord
+        y = fromIntegral $ getCellCoordY cellCoord
